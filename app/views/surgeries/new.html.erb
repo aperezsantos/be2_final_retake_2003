@@ -1,0 +1,14 @@
+<h1>Create New Surgery</h1>
+
+<%= form_tag("/surgeries", method: :post) do %>
+  <%= label_tag "Title" %>
+  <%= text_field_tag :title %>
+
+  <%= label_tag "Day" %>
+  <%= number_field_tag :day %>
+
+  <%= label_tag "Room" %>
+  <%= number_field_tag :room %>
+
+  <%= submit_tag "Create Surgery"%>
+<% end %>

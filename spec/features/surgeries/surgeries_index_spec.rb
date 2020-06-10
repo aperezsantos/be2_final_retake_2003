@@ -29,8 +29,7 @@ RSpec.describe "surgery’s index page", type: :feature do
 
       click_on "Create Surgery"
       expect(current_path).to eq("/surgeries")
-
-      new_surgery = Surgery.last
+      expect(page).to have_content("Lung Surgery")
     end
   end
 end
