@@ -18,7 +18,7 @@ RSpec.describe "surgery’s index page", type: :feature do
       expect(page).to have_content("Heart Surgery")
     end
 
-    xit "i can click on a link add a surgery" do
+    it "i can click on a link add a surgery" do
       click_link("Add Surgery")
 
       expect(current_path).to eq("/surgeries/new")

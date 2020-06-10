@@ -1,0 +1,7 @@
+<h1>All Surgeries</h1>
+
+<% @surgeries.each do |surgery| %>
+  <%= surgery.title %>
+<% end %>
+
+<%= link_to "Add Surgery" , "/surgeries/new" %>
