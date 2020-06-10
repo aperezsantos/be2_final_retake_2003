@@ -4,14 +4,15 @@
 <p>Number of Doctors Operating: <%= @surgery.doctors.length %></p>
 
 p>Other Surgeries Happening Today:</p>
+
 <% @surgeries.each do |surgery| %>
-<section id="surgeries-<%= surgery.id %>">
-  <% if surgery.day == @surgeries.same_day %>
-  <h3><%= surgery.title %></h3
+  <section class="surgeries">
+    <% if surgery.day == @surgery.day %>
+      <h3><%= surgery.title %></h3
     <% end %>
   </section>
-  <% end %>
-  
+<% end %>
+
 <% @surgery.doctors.each do |doctor| %>
   <%= doctor.name %>
 <% end %>
