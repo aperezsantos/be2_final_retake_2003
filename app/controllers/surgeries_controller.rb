@@ -17,6 +17,14 @@ class SurgeriesController < ApplicationController
     redirect_to "/surgeries"
   end
 
+  def update
+    surgery = Surgery.find(params[:id])
+    dorctor = surgery.doctors.find(params[:id])
+    if surgery.update(surgery_params)
+      redirect_to "/surgeries/#{surgery.id}"
+    end
+  end
+
   private
   def surgery_params
     params.permit(:title, :day, :room)

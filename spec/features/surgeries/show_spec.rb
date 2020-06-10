@@ -6,12 +6,14 @@ RSpec.describe "surgery show page", type: :feature do
       @unmh = Hospital.create!(name: "UNM Hospital", street: "2211 Lomas Blvd. NE", city: "Albuquerque", state: "NM", zip: 87106)
       @doctor_1 = @unmh.doctors.create!(name: "S. Santos", specialty: "Pediatrics", education: "Cornell")
       @doctor_2 = @unmh.doctors.create!(name: "T. Fernandes", specialty: "Oncology", education: "Harvard")
+      @doctor_3 = @unmh.doctors.create!(name: "T. Lucero", specialty: "Respiratory", education: "Harvard")
       @surgery_1 = Surgery.create!(title: "Knee Surgery", day: "Monday", room: "8")
       @surgery_2 = Surgery.create!(title: "Heart Surgery", day: "Monday", room: "3")
       @surgery_3 = Surgery.create!(title: "Lung Surgery", day: "Monday", room: "6")
-      @surgery_3 = Surgery.create!(title: "Lung Surgery", day: "Thursday", room: "3")
+      @surgery_4 = Surgery.create!(title: "Lung Surgery", day: "Thursday", room: "3")
       SurgeryDoctor.create!(doctor: @doctor_1, surgery: @surgery_2)
       SurgeryDoctor.create!(doctor: @doctor_2, surgery: @surgery_2)
+      SurgeryDoctor.create!(doctor: @doctor_3, surgery: @surgery_2)
 
       visit "/surgeries"
     end
@@ -43,8 +45,17 @@ RSpec.describe "surgery show page", type: :feature do
       end
     end
 
-    it "I see " do
+    it "I see instructions of how to add a doctor to the surgery " do
+      click_link("Heart Surgery")
 
+      expect(page).to have_content("Add a Doctor Form:")
+
+      fill_in :doctor_id, with: "3"
+
+      click_on("Add Doctor")
+      expect(current_path).to eq("/surgeries/#{@surgery_2.id}")
+
+      expect(page).to have_content("T.Lucero")
     end
   end
 end
@@ -54,6 +65,7 @@ end
 # As a visitor
 # When I visit a surgery's show page
 # I see a surgery's title, date, and
+
 # I see a field with instructions to "Add A Doctor To This Surgery"
 # When I input a doctor's unique id into that field
 # And click submit

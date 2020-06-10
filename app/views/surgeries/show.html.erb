@@ -3,11 +3,24 @@
 <p>Operating Room: <%= @surgery.room %></p>
 <p>Number of Doctors Operating: <%= @surgery.doctors.length %></p>
 
-<p>Other Surgeries Happening Today:</p>
+p>Other Surgeries Happening Today:</p>
 <% @surgeries.each do |surgery| %>
-  <section id="surgeries-<%= surgery.id %>">
-    <% if surgery.day == @surgeries.same_day %>
-      <h3><%= surgery.title %></h3
+<section id="surgeries-<%= surgery.id %>">
+  <% if surgery.day == @surgeries.same_day %>
+  <h3><%= surgery.title %></h3
     <% end %>
   </section>
+  <% end %>
+  
+<% @surgery.doctors.each do |doctor| %>
+  <%= doctor.name %>
+<% end %>
+
+<p>Add a Doctor Form:</p>
+
+<%= form_tag("/surgeries/#{@surgery.id}", method: :patch) do %>
+  <%= label_tag "doctor_id" %>
+  <%= text_field_tag :doctor_id %>
+
+  <%= submit_tag "Add Doctor"%>
 <% end %>
