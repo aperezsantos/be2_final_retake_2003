@@ -3,15 +3,15 @@
 <p>Operating Room: <%= @surgery.room %></p>
 <p>Number of Doctors Operating: <%= @surgery.doctors.length %></p>
 
-p>Other Surgeries Happening Today:</p>
 
-<% @surgeries.each do |surgery| %>
-  <section class="surgeries">
+<section class="surgeries">
+  <p>Other Surgeries Happening Today:</p>
+  <% @surgeries.each do |surgery| %>
     <% if surgery.day == @surgery.day %>
       <h3><%= surgery.title %></h3
     <% end %>
-  </section>
-<% end %>
+  <% end %>
+</section>
 
 <% @surgery.doctors.each do |doctor| %>
   <%= doctor.name %>

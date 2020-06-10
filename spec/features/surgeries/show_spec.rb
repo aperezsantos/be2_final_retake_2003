@@ -12,7 +12,6 @@ RSpec.describe "surgery show page", type: :feature do
       @surgery_3 = Surgery.create!(title: "Lung Surgery", day: "Thursday", room: "3")
       SurgeryDoctor.create!(doctor: @doctor_1, surgery: @surgery_2)
       SurgeryDoctor.create!(doctor: @doctor_2, surgery: @surgery_2)
-      SurgeryDoctor.create!(doctor: @doctor_3, surgery: @surgery_2)
 
       visit "/surgeries"
     end
@@ -31,13 +30,12 @@ RSpec.describe "surgery show page", type: :feature do
     it "i see the count of doctors on this surgery" do
       click_link("Heart Surgery")
 
-      expect(page).to have_content("Number of Doctors Operating: 3")
+      expect(page).to have_content("Number of Doctors Operating: 2")
     end
 
     it "i see a section with other surgeries happening the same day" do
       click_link("Heart Surgery")
-
-      within(".surgeries")
+      within(".surgeries") do
         expect(page).to have_content("Other Surgeries Happening Today:")
         expect(page).to have_content(@surgery_1.title)
         expect(page).to have_content(@surgery_2.title)
@@ -45,37 +43,19 @@ RSpec.describe "surgery show page", type: :feature do
       end
     end
 
+    it "I see instructions of how to add a doctor to the surgery " do
+      click_link("Heart Surgery")
+      expect(page).to have_content("Add a Doctor Form:")
 
-    # it "I see instructions of how to add a doctor to the surgery " do
-    #   click_link("Heart Surgery")
-    #
-    #   expect(page).to have_content("Add a Doctor Form:")
-    #
-    #   fill_in :doctor_id, with: "3"
-    #
-    #   click_on("Add Doctor")
-    #   expect(current_path).to eq("/surgeries/#{@surgery_2.id}")
-    #
-    #   expect(page).to have_content("T.Lucero")
-    # end
+      fill_in :doctor_id, with: "3"
+
+      click_on("Add Doctor")
+      expect(current_path).to eq("/surgeries/#{@surgery_2.id}")
+
+      expect(page).to have_content("T.Lucero")
+    end
+  end
 end
-
-
-
-
-# User Story 2 ,
-# Surgery Show Page
-# As a visitor
-# When I visit the surgery index page
-# I can click on any surgery title to take me to that surgery’s show page
-# And on the show page I see the title and operating room number of that surgery
-# And I see the count of doctors that are on this surgery
-
-# And I see a section of the page that says "Other surgeries happening this day of the week:"
-# And under that header I see titles of all surgeries that happen on the same day of the week as this surgery.
-
-
-
 
 
 
@@ -87,6 +67,7 @@ end
 # I see a surgery's title, date, and
 
 # I see a field with instructions to "Add A Doctor To This Surgery"
+
 # When I input a doctor's unique id into that field
 # And click submit
 # I'm taken back to that surgery's show page
