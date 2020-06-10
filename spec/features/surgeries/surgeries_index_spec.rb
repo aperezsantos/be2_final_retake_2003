@@ -8,7 +8,7 @@ RSpec.describe "surgery’s index page", type: :feature do
       @doctor_2 = @unmh.doctors.create!(name: "S. Santos", specialty: "Pediatrics", education: "Cornell")
 
       @surgery_1 = @doctor_1.surgeries.create!(title: "Knee Surgery", day: "Monday", room: "8")
-      @surgery_1 = @doctor_2.surgeries.create!(title: "Heart Surgery", day: "Monday", room: "3")
+      @surgery_2 = @doctor_2.surgeries.create!(title: "Heart Surgery", day: "Monday", room: "3")
 
       visit "/surgeries"
     end
