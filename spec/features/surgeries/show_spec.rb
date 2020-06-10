@@ -47,12 +47,13 @@ RSpec.describe "surgery show page", type: :feature do
       click_link("Heart Surgery")
       expect(page).to have_content("Add a Doctor Form:")
 
-      fill_in :doctor_id, with: "3"
+      fill_in :doctor_id, with: @doctor_3.id
 
       click_on("Add Doctor")
-      expect(current_path).to eq("/surgeries/#{@surgery_2.id}")
 
-      expect(page).to have_content("T.Lucero")
+      expect(current_path).to eq("/surgeries/#{@surgery_2.id}")
+      
+      expect(page).to have_content("T. Lucero")
     end
   end
 end

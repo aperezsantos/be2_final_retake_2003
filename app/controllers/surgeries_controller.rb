@@ -19,10 +19,9 @@ class SurgeriesController < ApplicationController
 
   def update
     surgery = Surgery.find(params[:id])
-    dorctor = surgery.doctors.find(params[:id])
-    if surgery.update(surgery_params)
-      redirect_to "/surgeries/#{surgery.id}"
-    end
+    surgery.doctors << Doctor.find(params[:doctor_id])
+
+    redirect_to "/surgeries/#{surgery.id}"
   end
 
   private
